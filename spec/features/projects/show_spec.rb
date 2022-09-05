@@ -23,12 +23,16 @@ RSpec.describe 'the project show page' do
         describe 'I also see the theme of the challenge that this project belongs to' do
           it 'displays project name and material' do
             visit "/projects/#{@news_chic.id}"
-            save_and_open_page
+            
             expect(page).to have_content('News Chic')
             expect(page).to have_content('Newspaper')
           end
 
-          it 'displays the theme of the challenge the project belongs to'
+          it 'displays the theme of the challenge the project belongs to' do
+            visit "/projects/#{@news_chic.id}"
+
+            expect(page).to have_content('Recycled Material')
+          end
         end
       end
     end
