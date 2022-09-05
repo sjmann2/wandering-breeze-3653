@@ -47,7 +47,27 @@ RSpec.describe 'The contestant index page' do
           expect(page).to have_content("Erin Robertson")
         end
 
-        it 'lists every project a contestant has been on'
+        it 'lists every project a contestant has been on' do
+          visit '/contestants'
+          
+          within "#contestant-#{@jay.id}" do
+            expect(page).to have_content('News Chic')
+          end
+
+          within "#contestant-#{@gretchen.id}" do
+            expect(page).to have_content('News Chic')
+            expect(page).to have_content('Upholstery Tuxedo')
+          end
+
+          within "#contestant-#{@kentaro.id}" do
+            expect(page).to have_content('Upholstery Tuxedo')
+            expect(page).to have_content('Boardfit')
+          end
+
+          within "#contestant-#{@erin.id}" do
+            expect(page).to have_content('Boardfit')
+          end
+        end
       end
     end
   end
