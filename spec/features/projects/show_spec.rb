@@ -82,7 +82,7 @@ RSpec.describe 'the project show page' do
               describe 'The number of contestants has increased by 1' do
                 it 'Can add a contestant to a project' do
                   visit "/projects/#{@boardfit.id}"
-
+                  
                   fill_in "Contestant id", with: "#{@gretchen.id}"
                   click_button "Add Contestant to Project"
 
