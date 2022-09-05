@@ -72,4 +72,38 @@ RSpec.describe 'the project show page' do
       end
     end
   end
+
+  describe 'User story extension 2' do
+    describe 'When I visit a projects show page' do
+      describe 'I see a form to add a contestant to this project' do
+        describe 'When I fill out a field with an existing contentants id' do
+          describe 'And hit Add Contestant to Project' do
+            describe 'Im taken back to the projects show page' do
+              describe 'The number of contestants has increased by 1' do
+                it 'Can add a contestant to a project' do
+                  visit "/projects/#{@boardfit.id}"
+
+                  fill_in "Contestant id", with: "#{@gretchen.id}"
+                  click_button "Add Contestant to Project"
+
+                  expect(current_path).to eq("/projects/#{@boardfit.id}")
+                end
+
+                it 'increases the number of contestants by 1' do
+                  visit "/projects/#{@boardfit.id}"
+
+                  expect(page).to have_content('Number of Contestants: 2')
+
+                  fill_in "Contestant id", with: "#{@gretchen.id}"
+                  click_button "Add Contestant to Project"
+
+                  expect(page).to have_content('Number of Contestants: 3')
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
 end
