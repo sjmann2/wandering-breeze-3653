@@ -60,4 +60,16 @@ RSpec.describe 'the project show page' do
       end
     end
   end
+
+  describe 'User story extension 1' do
+    describe 'When I visit a projects show page' do
+      describe 'I see the average years of experience for the contestants that worked on that project' do
+        it 'Shows average years experience for all contestants on a project' do
+          visit "/projects/#{@boardfit.id}"
+
+          expect(page).to have_content('Average Contestant Experience: 11.5')
+        end
+      end
+    end
+  end
 end
