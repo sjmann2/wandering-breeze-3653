@@ -1,13 +1,5 @@
 require 'rails_helper'
 
-
-# As a visitor,
-# When I visit a project's show page ("/projects/:id"),
-# I see that project's name and material
-# And I also see the theme of the challenge that this project belongs to.
-# (e.g.    Litfit
-#     Material: Lamp Shade
-#   Challenge Theme: Apartment Furnishings)
 RSpec.describe 'the project show page' do
   before :each do
     @recycled_material_challenge = Challenge.create(theme: "Recycled Material", project_budget: 1000)
@@ -81,6 +73,13 @@ RSpec.describe 'the project show page' do
             describe 'Im taken back to the projects show page' do
               describe 'The number of contestants has increased by 1' do
                 it 'Can add a contestant to a project' do
+                  visit "/contestants"
+                  
+                  within "#contestant-#{@gretchen.id}" do
+                    expect(page).to have_content('News Chic')
+                    expect(page).to_not have_content('Boardfit')
+                  end
+
                   visit "/projects/#{@boardfit.id}"
                   
                   fill_in "Contestant id", with: "#{@gretchen.id}"
@@ -98,6 +97,24 @@ RSpec.describe 'the project show page' do
                   click_button "Add Contestant to Project"
 
                   expect(page).to have_content('Number of Contestants: 3')
+                end
+              end
+            end
+          end
+
+          describe 'When Ive added a contestant to a project' do
+            describe 'And I visit the contestants index page' do
+              it 'Lists the project under the contestants name' do
+                visit "/projects/#{@boardfit.id}"
+                        
+                fill_in "Contestant id", with: "#{@gretchen.id}"
+                click_button "Add Contestant to Project"
+      
+                visit "/contestants"
+      
+                within "#contestant-#{@gretchen.id}" do
+                  expect(page).to have_content('News Chic')
+                  expect(page).to have_content('Boardfit')
                 end
               end
             end

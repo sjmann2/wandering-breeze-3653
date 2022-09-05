@@ -1,16 +1,5 @@
 require 'rails_helper'
-# User Story 2 of 3
 
-# As a visitor,
-# When I visit the contestants index page ("/contestants")
-# I see a list of names of all the contestants
-# And under each contestants name I see a list of the projects (names) that they've been on
-
-# (e.g.   Kentaro Kameyama
-#         Projects: Litfit, Rug Tuxedo
-
-#         Jay McCarroll
-#         Projects: LeatherFeather)
 RSpec.describe 'The contestant index page' do
   before :each do
     @jay = Contestant.create(name: "Jay McCarroll", age: 40, hometown: "LA", years_of_experience: 13)
@@ -52,6 +41,7 @@ RSpec.describe 'The contestant index page' do
           
           within "#contestant-#{@jay.id}" do
             expect(page).to have_content('News Chic')
+            expect(page).to_not have_content('Upholstery Tuxedo')
           end
 
           within "#contestant-#{@gretchen.id}" do
