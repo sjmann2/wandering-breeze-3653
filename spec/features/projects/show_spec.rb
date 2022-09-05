@@ -26,12 +26,14 @@ RSpec.describe 'the project show page' do
             
             expect(page).to have_content('News Chic')
             expect(page).to have_content('Newspaper')
+            expect(page).to_not have_content('Boardfit')
           end
 
           it 'displays the theme of the challenge the project belongs to' do
             visit "/projects/#{@news_chic.id}"
-            save_and_open_page
+            
             expect(page).to have_content('Recycled Material')
+            expect(page).to_not have_content('Apartment Furnishings')
           end
         end
       end
